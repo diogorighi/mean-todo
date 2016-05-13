@@ -1,5 +1,7 @@
+var angular = require('angular');
+
 angular.module('todoListApp')
-.controller('todoCtrl', function($scope, dataService){
+.controller('todoCtrl', function ($scope, dataService){
 
 	$scope.deleteTodo = function(todo){
 		dataService.deleteTodo(todo);
@@ -15,4 +17,4 @@ angular.module('todoListApp')
 		dataService.saveTodos(filteredTodos);
 	}
 
-})
+});

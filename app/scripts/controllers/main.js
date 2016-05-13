@@ -1,7 +1,7 @@
-'use strict';
+var angular = require('angular');
 
-angular.module("todoListApp")
-.controller('mainCtrl', function($scope, dataService){
+angular.module('todoListApp')
+.controller('mainCtrl', function( $scope, dataService) {
 
 	$scope.addTodo = function(){
 		var todo = {
@@ -15,4 +15,4 @@ angular.module("todoListApp")
 		$scope.todos = response.data.todos;
 	});
 
-})
+});
