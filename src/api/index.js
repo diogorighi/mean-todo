@@ -1,12 +1,18 @@
 'use strict';
 
 var express = require('express');
-var todos = require('../../mock/todos.json');
+var Todo = require('../models/todo')
 
 var router = express.Router();
 
 router.get('/todos', function(req,res){
-	res.json({ todos: todos });
+	Todo.find({}, function(err, todos){
+		if(err){
+			return console.log(err)
+		}
+		res.json({ todos: todos });
+	})
+	
 })
 
 // TODO: Add POST route to create new entries
