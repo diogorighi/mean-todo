@@ -9,12 +9,19 @@
 <body ng-app="todoListApp">
 
 	<h1>My To-Dos / Minhas Tarefas </h1>
-	<todos></todos>
+	<div class="list" ng-controller="mainCtrl">
+		<div class="add">
+			<a href="" ng-click="addTodo()">+ Add new todo</a>
+		</div>
+		<todo></todo>
+	</div>
+
 
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
 	<script src="scripts/app.js"></script>
 	<script src="scripts/controllers/main.js"></script>
+	<script src="scripts/controllers/todo.js"></script>
 	<script src="scripts/services/data.js"></script>
-	<script src="scripts/directives/todos.js"></script>
+	<script src="scripts/directives/todo.js"></script>
 </body>
 </html>

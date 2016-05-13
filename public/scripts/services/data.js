@@ -4,12 +4,12 @@ angular.module("todoListApp")
 .service('dataService', function($http){
 
 	this.getTodos = function(callback) {
-		$http.get('mocks/todos.json')
+		$http.get('api/todos')
 		.then(callback);	
 	};
 
 	this.deleteTodo = function(todo){
-		console.log('The ' + todo.title + " todo has been deleted");
+		console.log('The ' + todo.name + " todo has been deleted");
 	}
 
 	this.saveTodos = function(todos){
