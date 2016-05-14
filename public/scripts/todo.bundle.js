@@ -27,7 +27,7 @@ webpackJsonp([0],[
 
 		$scope.addTodo = function(){
 			var todo = {
-				title: "This is the new todo!",
+				name: "This is the new todo!",
 				completed: false
 			};
 			$scope.todos.unshift(todo);
@@ -60,7 +60,14 @@ webpackJsonp([0],[
 					return todo;
 				}
 			});
-			dataService.saveTodos(filteredTodos);
+			dataService.saveTodos(filteredTodos)
+			.finally($scope.resetTodoState);
+		}
+
+		$scope.resetTodoState = function(){
+			$scope.todos.forEach(function(todo){
+				todo.edited = false;
+			})
 		}
 
 	});
@@ -89,7 +96,7 @@ webpackJsonp([0],[
 	var angular = __webpack_require__(1);
 
 	angular.module('todoListApp')
-	.service('dataService', function($http){
+	.service('dataService', function($http, $q){
 
 		this.getTodos = function(callback) {
 			$http.get('api/todos')
@@ -101,7 +108,25 @@ webpackJsonp([0],[
 		}
 
 		this.saveTodos = function(todos){
-			console.log(todos.length + " todos have been saved!");	
+			var queue = [];
+			todos.forEach(function(todo){
+				var request;
+
+				if(!todo._id){
+					request = $http.post('/api/todos', todo);
+				} else {
+					request = $http.put('/api/todos/' + todo._id, todo).then(function(result){
+						todo = result.data.todo;
+						return todo;
+					});
+				}
+
+				queue.push(request);
+			});
+			return $q.all(queue).then(function(results){
+				console.log("Saved " + todos.length + " todos to database!");
+			})
+
 		}
 		
 	});
